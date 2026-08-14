@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Birthday, My Special Person ❤️🎂</title>
+  
+  <!-- Google Fonts for Calligraphy and Premium Display -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Playfair+Display:ital,wght@0,500;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+
+  <!-- Custom Glow Cursor -->
+  <div id="cursor-dot"></div>
+
+  <!-- Ambient Particle Canvas -->
+  <canvas id="bg-canvas"></canvas>
+
+  <!-- Top Story Progress Bar & Quick Audio Controller -->
+  <header id="top-bar">
+    <div class="story-tracker">
+      <span class="progress-counter" id="story-step-text">01 / 12</span>
+      <div class="progress-bar-bg">
+        <div class="progress-bar-fill" id="story-progress-fill"></div>
+      </div>
+    </div>
+    <div class="top-actions">
+      <button class="action-btn" id="slideshow-toggle-btn" title="Memory Cinema Mode">🎬</button>
+      <button class="action-btn" id="audio-toggle-btn" title="Toggle Music">🎵</button>
+    </div>
+  </header>
+
+  <!-- =========================================================================
+       1. PRELOADER
+     ========================================================================= -->
+  <div id="preloader">
+    <div class="preloader-heart">❤️</div>
+    <div class="preloader-text" id="preloader-text">Preparing Something Special...</div>
+    <div class="preloader-progress-box">
+      <div class="preloader-progress-bar" id="preloader-bar"></div>
+    </div>
+    <div class="preloader-percent" id="preloader-percent">0%</div>
+  </div>
+
+  <!-- =========================================================================
+       2. WELCOME PAGE
+     ========================================================================= -->
+  <section class="story-section active" id="welcome-section">
+    <div class="container-narrow text-center">
+      <div class="welcome-hero-card glass-card">
+        <h1 class="welcome-header">Hey You... ❤️</h1>
+        <div class="typewriter-box">
+          <span id="typewriter-text"></span><span class="cursor-blink"></span>
+        </div>
+        <button class="btn-primary" id="enter-surprise-btn">
+          <span>ENTER YOUR SURPRISE</span> ✨
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       3. CINEMATIC CURTAINS
+     ========================================================================= -->
+  <div id="curtains-section">
+    <div class="spotlight"></div>
+    <div class="curtain-panel curtain-left"></div>
+    <div class="curtain-panel curtain-right"></div>
+    <div class="curtains-content">
+      <h2 class="curtains-title">Your surprise is waiting...</h2>
+      <p class="curtains-prompt">Click the button to open the curtains ❤️</p>
+      <button class="open-curtain-btn" id="open-curtains-btn">OPEN THE CURTAINS 🎭</button>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       4. BIRTHDAY STAGE & DECORATIONS
+     ========================================================================= -->
+  <section class="story-section" id="stage-section">
+    <div class="container-narrow text-center">
+      <div class="bunting-banner">
+        <div class="bunting-flag"></div>
+        <div class="bunting-flag"></div>
+        <div class="bunting-flag"></div>
+        <div class="bunting-flag"></div>
+        <div class="bunting-flag"></div>
+        <div class="bunting-flag"></div>
+        <div class="bunting-flag"></div>
+      </div>
+
+      <div class="fairy-lights">
+        <div class="light-bulb"></div>
+        <div class="light-bulb"></div>
+        <div class="light-bulb"></div>
+        <div class="light-bulb"></div>
+        <div class="light-bulb"></div>
+        <div class="light-bulb"></div>
+      </div>
+
+      <h1 class="stage-header" id="birthday-greeting-name">Happy Birthday ❤️</h1>
+      <p class="section-subtitle">Today is all about celebrating you!</p>
+
+      <div class="glass-card" style="margin-top: 20px;">
+        <p style="font-size: 1.15rem; color: var(--blush); line-height: 1.8;">
+          Step into your magical birthday room. Scroll or press the button below to explore every gift and surprise hidden for you!
+        </p>
+        <button class="btn-primary story-nav-btn" onclick="goToNextSection()">
+          Make a Wish & Cut the Cake 🎂
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       5. BIRTHDAY CAKE & CANDLES
+     ========================================================================= -->
+  <section class="story-section" id="cake-section">
+    <div class="container-narrow text-center">
+      <h2 class="section-title">Make a Wish ✨</h2>
+      <p class="section-subtitle">Click the candles to blow them out!</p>
+
+      <div class="cake-container">
+        <div class="candles-row" id="candles-row">
+          <div class="candle" onclick="extinguishCandle(this)">
+            <div class="flame"></div>
+            <div class="smoke"></div>
+          </div>
+          <div class="candle" onclick="extinguishCandle(this)">
+            <div class="flame"></div>
+            <div class="smoke"></div>
+          </div>
+          <div class="candle" onclick="extinguishCandle(this)">
+            <div class="flame"></div>
+            <div class="smoke"></div>
+          </div>
+        </div>
+
+        <div class="cake-tier tier-top">
+          <div class="cake-cream"></div>
+          <div class="cake-decorations">
+            <span class="strawberry">🍓</span>
+            <span class="strawberry">🍓</span>
+            <span class="strawberry">🍓</span>
+          </div>
+        </div>
+        <div class="cake-tier">
+          <div class="cake-cream"></div>
+          <div class="cake-decorations">
+            <span class="strawberry">🍓</span>
+            <span class="strawberry">🍓</span>
+            <span class="strawberry">🍓</span>
+            <span class="strawberry">🍓</span>
+          </div>
+        </div>
+        <div class="cake-stand"></div>
+      </div>
+
+      <div class="wish-status" id="wish-status">Blow out the candles!</div>
+
+      <div style="margin-top: 20px;">
+        <button class="btn-secondary" id="blow-all-btn" onclick="extinguishAllCandles()">
+          Blow All Candles 🕯️
+        </button>
+      </div>
+
+      <button class="btn-primary story-nav-btn" id="after-cake-btn" style="display: none;" onclick="goToNextSection()">
+        Receive Your Flowers 💐
+      </button>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       6. VIRTUAL BOUQUET 💐
+     ========================================================================= -->
+  <section class="story-section" id="bouquet-section">
+    <div class="container-narrow text-center">
+      <h2 class="section-title">Your Flowers 💐</h2>
+      <p class="section-subtitle">Fresh blooms gathered just for you</p>
+
+      <div class="bouquet-wrapper" id="bouquet-wrapper">
+        <div class="flower-bouquet">
+          <div class="flower-item" onclick="openFlowerNote(0)" title="Click me!">🌹</div>
+          <div class="flower-item" onclick="openFlowerNote(1)" title="Click me!">🌷</div>
+          <div class="flower-item" onclick="openFlowerNote(2)" title="Click me!">🌸</div>
+          <div class="flower-item" onclick="openFlowerNote(3)" title="Click me!">🌺</div>
+          <div class="flower-item" onclick="openFlowerNote(4)" title="Click me!">🌻</div>
+        </div>
+        <div class="bouquet-wrap-ribbon">
+          <span class="ribbon-bow">🎀</span>
+        </div>
+      </div>
+
+      <div style="margin-top: 15px;">
+        <button class="btn-primary" id="open-bouquet-btn" onclick="bloomBouquet()">
+          Open Your Bouquet 💐
+        </button>
+      </div>
+
+      <p class="section-subtitle" id="bouquet-msg" style="margin-top: 20px; opacity: 0; transition: opacity 1s;">
+        "These flowers are for you. ❤️" <br><small style="font-size: 1rem; color: var(--gold);">(Click individual flowers for hidden notes!)</small>
+      </p>
+
+      <button class="btn-primary story-nav-btn" onclick="goToNextSection()">
+        Listen to a Special Melody 🎵
+      </button>
+    </div>
+  </section>
+
+  <!-- Flower Note Modal -->
+  <div class="flower-note-modal" id="flower-note-modal">
+    <h3 style="font-family: var(--font-serif); color: var(--gold); margin-bottom: 10px;" id="flower-note-title">Secret Flower Note 🌸</h3>
+    <p style="font-size: 1.1rem; color: var(--cream);" id="flower-note-body">You bring sunshine into every room!</p>
+    <button class="btn-secondary" style="margin-top: 15px;" onclick="closeFlowerNote()">Close ❤️</button>
+  </div>
+
+  <!-- =========================================================================
+       7. MUSIC / SONG SECTION 🎵
+     ========================================================================= -->
+  <section class="story-section" id="music-section">
+    <div class="container-narrow text-center">
+      <h2 class="section-title">A Song For You 🎵</h2>
+      <p class="section-subtitle">Let the music play while you read your surprise</p>
+
+      <div class="music-card glass-card" id="music-card">
+        <div class="album-art-box">
+          <div class="album-center-hole"></div>
+        </div>
+        <h3 class="song-title" id="song-title-display">Birthday Lullaby & Harmony</h3>
+        <p class="artist-name">Composed Specially For You</p>
+
+        <!-- Equalizer -->
+        <div class="visualizer-box">
+          <div class="v-bar"></div>
+          <div class="v-bar"></div>
+          <div class="v-bar"></div>
+          <div class="v-bar"></div>
+          <div class="v-bar"></div>
+          <div class="v-bar"></div>
+          <div class="v-bar"></div>
+        </div>
+
+        <div class="audio-controls">
+          <button class="play-btn" id="song-play-btn" onclick="toggleSongPlay()">▶</button>
+        </div>
+
+        <div class="progress-container">
+          <span class="time-stamp" id="song-time-curr">0:00</span>
+          <input type="range" class="seek-slider" id="song-seek" value="0" min="0" max="100" oninput="seekSong(this.value)" />
+          <span class="time-stamp" id="song-time-dur">2:30</span>
+        </div>
+      </div>
+
+      <button class="btn-primary story-nav-btn" onclick="goToNextSection()">
+        Read Your Birthday Letter 💌
+      </button>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       8. LOVE MESSAGE / LETTER 💌
+     ========================================================================= -->
+  <section class="story-section" id="letter-section">
+    <div class="container-narrow text-center">
+      <h2 class="section-title">You Have a Letter... 💌</h2>
+      <p class="section-subtitle">Sent with all my heart</p>
+
+      <div class="envelope-wrapper" id="envelope-wrapper" onclick="openEnvelope()">
+        <div class="envelope-body"></div>
+        <div class="envelope-flap"></div>
+        <div class="envelope-seal">❤️</div>
+      </div>
+
+      <div style="margin-top: 15px; display: flex; justify-content: center; align-items: center; gap: 12px; flex-wrap: wrap;">
+        <button class="btn-primary" id="open-letter-btn" onclick="openEnvelope()">
+          Open Letter 💌
+        </button>
+        <button class="btn-secondary" id="skip-letter-btn" style="display: none;" onclick="skipLetterWriting()">
+          Skip Writing ⚡
+        </button>
+      </div>
+
+      <div class="letter-paper" id="letter-paper">
+        <p id="letter-text"></p>
+      </div>
+
+      <button class="btn-primary story-nav-btn" id="after-letter-btn" style="display: none;" onclick="goToNextSection()">
+        Open Memory Book 📖
+      </button>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       9. VIRTUAL 3D MEMORY BOOK 📖
+     ========================================================================= -->
+  <section class="story-section" id="book-section">
+    <div class="container-narrow text-center">
+      <h2 class="section-title">Our Little Book of Memories ❤️</h2>
+      <p class="section-subtitle">Turn the pages to walk down memory lane</p>
+
+      <div class="book-container">
+        <div class="book-spine">
+          <div id="book-page-container">
+            <!-- Pages rendered dynamically -->
+          </div>
+
+          <div class="book-nav">
+            <button class="btn-secondary" id="book-prev-btn" onclick="prevBookPage()">← Previous</button>
+            <span style="font-family: var(--font-serif); color: var(--gold);" id="book-page-indicator">Page 1 / 7</span>
+            <button class="btn-secondary" id="book-next-btn" onclick="nextBookPage()">Next →</button>
+          </div>
+        </div>
+      </div>
+
+      <button class="btn-primary story-nav-btn" onclick="goToNextSection()">
+        View Photo Gallery 📸
+      </button>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       10. MEMORY GALLERY 📸
+     ========================================================================= -->
+  <section class="story-section" id="gallery-section">
+    <div class="container-narrow text-center">
+      <h2 class="section-title">Memory Gallery 📸</h2>
+      <p class="section-subtitle">Snapshots of unforgettable times</p>
+
+      <div class="gallery-grid" id="gallery-grid">
+        <!-- Rendered by JS -->
+      </div>
+
+      <button class="btn-primary story-nav-btn" onclick="goToNextSection()">
+        Discover Reasons You Are Special ❤️
+      </button>
+    </div>
+  </section>
+
+  <!-- Lightbox Modal -->
+  <div id="lightbox-modal" onclick="closeLightbox(event)">
+    <div class="lightbox-content">
+      <div class="lightbox-img-box">
+        <img src="" alt="Memory" id="lightbox-img" class="lightbox-img" />
+      </div>
+      <h3 style="font-family: var(--font-serif); color: var(--gold);" id="lightbox-caption">Caption</h3>
+      <p style="color: var(--soft-pink);" id="lightbox-date">Date</p>
+      <button class="btn-secondary" style="margin-top: 15px;" onclick="closeLightboxDirect()">Close ✕</button>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       11. "REASONS YOU ARE SPECIAL" ❤️
+     ========================================================================= -->
+  <section class="story-section" id="reasons-section">
+    <div class="container-narrow text-center">
+      <h2 class="section-title">Why You Are Special ❤️</h2>
+      <p class="section-subtitle">Click each card to flip and reveal</p>
+
+      <div class="reasons-grid" id="reasons-grid">
+        <!-- Cards generated dynamically -->
+      </div>
+
+      <button class="btn-primary story-nav-btn" onclick="goToNextSection()">
+        Play Birthday Mini Games 🎮
+      </button>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       12. MINI GAMES 🎮
+     ========================================================================= -->
+  <section class="story-section" id="games-section">
+    <div class="container-narrow text-center">
+      <h2 class="section-title">Birthday Arcade 🎮</h2>
+      <p class="section-subtitle">Play cute mini games crafted for your smile</p>
+
+      <div class="games-tab-bar">
+        <button class="game-tab-btn active" onclick="switchGameTab(0)">❤️ Catch Hearts</button>
+        <button class="game-tab-btn" onclick="switchGameTab(1)">🎈 Pop Balloons</button>
+        <button class="game-tab-btn" onclick="switchGameTab(2)">🧠 Memory Match</button>
+      </div>
+
+      <div class="glass-card">
+        <!-- Game 1: Catch Hearts -->
+        <div class="game-panel active" id="game-panel-0">
+          <p style="margin-bottom: 10px; color: var(--soft-pink);">Move mouse/finger to catch 10 falling hearts!</p>
+          <canvas id="game-canvas" width="480" height="280"></canvas>
+          <p style="margin-top: 10px; font-family: var(--font-serif); color: var(--gold);" id="game1-status">Hearts Caught: 0 / 10</p>
+        </div>
+
+        <!-- Game 2: Pop Balloons -->
+        <div class="game-panel" id="game-panel-1">
+          <p style="margin-bottom: 10px; color: var(--soft-pink);">Tap the floating balloons to pop surprise notes!</p>
+          <div class="balloons-field" id="balloons-field"></div>
+          <p style="margin-top: 10px; font-family: var(--font-serif); color: var(--gold);" id="game2-status">Balloons Popped: 0</p>
+        </div>
+
+        <!-- Game 3: Memory Match -->
+        <div class="game-panel" id="game-panel-2">
+          <p style="margin-bottom: 10px; color: var(--soft-pink);">Match pairs of symbols!</p>
+          <div class="memory-grid" id="memory-grid"></div>
+          <p style="margin-top: 10px; font-family: var(--font-serif); color: var(--gold);" id="game3-status">Matches Found: 0 / 6</p>
+        </div>
+      </div>
+
+      <button class="btn-primary story-nav-btn" onclick="goToNextSection()">
+        Choose Your Gift Boxes 🎁
+      </button>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       13. SURPRISE GIFT BOXES 🎁
+     ========================================================================= -->
+  <section class="story-section" id="gifts-section">
+    <div class="container-narrow text-center">
+      <h2 class="section-title">Choose a Gift 🎁</h2>
+      <p class="section-subtitle">Click any box to unwrap your special surprise</p>
+
+      <div class="gifts-grid">
+        <div class="gift-box-item glass-card" id="gift-box-0" onclick="openGiftBox(0)">
+          <div class="gift-box-icon" id="gift-icon-0">🎁</div>
+          <div class="gift-label" id="gift-label-0">Gift 1</div>
+          <div class="gift-status" id="gift-status-0">Tap to Open ✨</div>
+        </div>
+        <div class="gift-box-item glass-card" id="gift-box-1" onclick="openGiftBox(1)">
+          <div class="gift-box-icon" id="gift-icon-1">🎁</div>
+          <div class="gift-label" id="gift-label-1">Gift 2</div>
+          <div class="gift-status" id="gift-status-1">Tap to Open ✨</div>
+        </div>
+        <div class="gift-box-item glass-card" id="gift-box-2" onclick="openGiftBox(2)">
+          <div class="gift-box-icon" id="gift-icon-2">🎁</div>
+          <div class="gift-label" id="gift-label-2">Gift 3</div>
+          <div class="gift-status" id="gift-status-2">Tap to Open ✨</div>
+        </div>
+        <div class="gift-box-item glass-card" id="gift-box-3" onclick="openGiftBox(3)">
+          <div class="gift-box-icon" id="gift-icon-3">🎁</div>
+          <div class="gift-label" id="gift-label-3">Gift 4</div>
+          <div class="gift-status" id="gift-status-3">Tap to Open ✨</div>
+        </div>
+      </div>
+
+      <button class="btn-primary story-nav-btn" onclick="goToNextSection()">
+        Unlock Secret Vault 🔐
+      </button>
+    </div>
+  </section>
+
+  <!-- Gift Surprise Modal -->
+  <div class="flower-note-modal" id="gift-modal" style="z-index: 25000; display: none;">
+    <div style="font-size: 3.5rem; margin-bottom: 15px;" id="gift-modal-icon">💝</div>
+    <h3 style="font-family: var(--font-serif); color: var(--gold); font-size: 1.8rem; margin-bottom: 10px;" id="gift-modal-title">Surprise Unlocked! 🎉</h3>
+    <div style="font-size: 1.15rem; color: var(--cream); line-height: 1.7; margin: 15px 0; background: rgba(0,0,0,0.3); padding: 20px; border-radius: 16px; border: 1px solid var(--card-border);" id="gift-modal-body">
+      You bring so much warmth and happiness into my world!
+    </div>
+    <button class="btn-primary" style="margin-top: 10px;" onclick="closeGiftModal()">Claim Gift ❤️</button>
+  </div>
+
+  <!-- =========================================================================
+       14. SECRET PASSWORD SURPRISE 🔐
+     ========================================================================= -->
+  <section class="story-section" id="secret-section">
+    <div class="container-narrow text-center">
+      <h2 class="section-title">Secret Surprise 🔐</h2>
+      <p class="section-subtitle">Some surprises are only for you...</p>
+
+      <div class="glass-card" style="max-width: 500px; margin: 0 auto;">
+        <p style="color: var(--soft-pink); margin-bottom: 15px;">Enter the secret word (Hint: LOVE)</p>
+        <div class="secret-input-box">
+          <input type="text" id="secret-pass-input" class="secret-input" placeholder="Enter secret code..." />
+          <button class="btn-primary" onclick="checkSecretPassword()">Unlock</button>
+        </div>
+        <div id="secret-reveal-msg" style="margin-top: 20px; display: none;"></div>
+      </div>
+
+      <button class="btn-primary story-nav-btn" onclick="goToNextSection()">
+        Walk Into Future Dreams 🌙
+      </button>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       15. FUTURE DREAMS 🌙
+     ========================================================================= -->
+  <section class="story-section" id="dreams-section">
+    <div class="container-narrow text-center">
+      <h2 class="section-title">Future Dreams & Wishes 🌙</h2>
+      <p class="section-subtitle">Things I hope you experience in the coming year</p>
+
+      <div class="reasons-grid" id="dreams-grid">
+        <!-- Rendered by JS -->
+      </div>
+
+      <button class="btn-primary story-nav-btn" onclick="goToNextSection()">
+        Plant a Wish on the Tree 🌳
+      </button>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       16. WISH TREE 🌳 & 17. TIME CAPSULE ⏳
+     ========================================================================= -->
+  <section class="story-section" id="tree-section">
+    <div class="container-narrow text-center">
+      <h2 class="section-title">Magical Wish Tree 🌳</h2>
+      <p class="section-subtitle">Hang a glowing wish on the tree</p>
+
+      <div class="tree-container">
+        <canvas id="tree-canvas" width="400" height="300"></canvas>
+      </div>
+
+      <div style="margin-top: 15px;">
+        <button class="btn-primary" onclick="addWishToTree()">
+          Make a Wish ✨
+        </button>
+      </div>
+      <p style="color: var(--gold); margin-top: 10px;" id="wish-tree-counter">Wishes on the Tree: 1</p>
+
+      <!-- Time Capsule Box -->
+      <div class="glass-card" style="margin-top: 40px; text-align: left;">
+        <h3 style="font-family: var(--font-serif); color: var(--gold); margin-bottom: 10px;">Digital Time Capsule ⏳</h3>
+        <p style="font-size: 0.95rem; color: var(--soft-pink); margin-bottom: 15px;">
+          Write a message to your future self on your next birthday:
+        </p>
+        <textarea id="capsule-text" style="width: 100%; height: 90px; background: rgba(0,0,0,0.3); border: 1px solid var(--card-border); border-radius: 12px; color: var(--cream); padding: 12px; font-family: var(--font-sans); resize: none;" placeholder="My promise & hope for next year..."></textarea>
+        <button class="btn-secondary" style="margin-top: 10px;" onclick="sealTimeCapsule()">Seal Time Capsule 🔐</button>
+        <div id="capsule-status" style="margin-top: 12px; font-weight: 500; display: none;"></div>
+      </div>
+
+      <button class="btn-primary story-nav-btn" onclick="unlockFinalSurpriseSection()">
+        Unlock FINAL SURPRISE ❤️
+      </button>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       18. PHOTO SLIDESHOW CINEMA MODE
+     ========================================================================= -->
+  <div id="slideshow-fullscreen" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 30000; display: none; align-items: center; justify-content: center;">
+    <div id="slideshow-img-box" style="position: relative; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
+      <img id="slideshow-img" src="" style="max-width: 90%; max-height: 80vh; border-radius: 16px; box-shadow: 0 0 50px rgba(255,51,102,0.5); transition: transform 6s ease, opacity 1s ease;" />
+      <div id="slideshow-text" style="position: absolute; bottom: 80px; font-family: var(--font-script); font-size: 2.2rem; color: var(--gold); text-shadow: 0 0 20px #000;">
+        "Some moments deserve to stay forever."
+      </div>
+    </div>
+    <button class="btn-secondary" style="position: absolute; top: 30px; right: 30px;" onclick="closeSlideshow()">Close Cinema ✕</button>
+  </div>
+
+  <!-- =========================================================================
+       19. FINAL SURPRISE
+     ========================================================================= -->
+  <section class="story-section" id="surprise-section">
+    <div class="container-narrow text-center">
+      <div id="final-surprise-initial">
+        <h2 class="section-title">One Last Thing...</h2>
+        <div id="glowing-heart-pulse" onclick="triggerGrandFireworks()" style="font-size: 6rem; margin: 40px auto; cursor: pointer; animation: heartPulse 1s infinite alternate; filter: drop-shadow(0 0 30px var(--primary-rose));">
+          ❤️
+        </div>
+        <p class="section-subtitle">Touch the heart to unlock your grand celebration!</p>
+      </div>
+
+      <div id="final-surprise-reveal" style="display: none;">
+        <h1 class="stage-header">Happy Birthday ❤️🎂</h1>
+        <p style="font-family: var(--font-script); font-size: 2.2rem; color: var(--soft-pink); margin-bottom: 25px;">
+          You deserve all the happiness in the world!
+        </p>
+
+        <div class="glass-card" style="margin: 30px 0;">
+          <p style="font-size: 1.3rem; line-height: 2; color: var(--cream);">
+            Keep smiling.<br>
+            Keep dreaming.<br>
+            Keep being you.
+          </p>
+        </div>
+
+        <button class="btn-primary" onclick="goToFinalGiftSection()">
+          Open Your Final Gift 🎁
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       20. FINAL GIFT
+     ========================================================================= -->
+  <section class="story-section" id="final-gift-section">
+    <div class="container-narrow text-center">
+      <h2 class="section-title">Your Final Gift 🎁</h2>
+
+      <div id="giant-gift-box" onclick="openGiantGift()" style="font-size: 8rem; margin: 30px auto; cursor: pointer; animation: gentleBounce 2s infinite ease-in-out; filter: drop-shadow(0 0 40px var(--gold));">
+        🎁
+      </div>
+      <p class="section-subtitle" id="giant-gift-hint">Click the gift box to reveal!</p>
+
+      <div id="giant-gift-content" style="display: none;" class="glass-card">
+        <div style="font-size: 4rem; margin-bottom: 15px;">❤️</div>
+        <h2 class="section-title" style="color: var(--gold);">HAPPY BIRTHDAY!</h2>
+        <p style="font-size: 1.2rem; color: var(--soft-pink); margin-top: 15px;">
+          Made with love, code, and countless little details.
+        </p>
+        <button class="btn-primary story-nav-btn" onclick="goToFinalScreenSection()">
+          Watch the Sky ✨
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       21. FINAL SCREEN
+     ========================================================================= -->
+  <section class="story-section" id="final-screen-section">
+    <div class="container-narrow text-center">
+      <div class="glass-card" style="padding: 50px 30px;">
+        <div style="font-size: 3rem; margin-bottom: 20px;">💖 💕</div>
+        <p style="font-family: var(--font-serif); font-size: 1.8rem; color: var(--gold); line-height: 1.6; margin-bottom: 25px;">
+          "Some people make life beautiful just by being in it."
+        </p>
+        <h1 class="stage-header">Happy Birthday ❤️</h1>
+        <p style="font-family: var(--font-script); font-size: 2rem; color: var(--soft-pink); margin-top: 20px;">
+          Always keep smiling.
+        </p>
+        <p style="font-size: 0.9rem; color: rgba(255,255,255,0.5); margin-top: 40px;">
+          Made specially for you.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Script Import -->
+  <script type="module" src="/script.js"></script>
+</body>
+</html>
